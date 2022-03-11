@@ -1,0 +1,6 @@
+1. pandas.errors.EmptyDataError: No columns to parse from file
+2. Selenium common exception: NoSuchElement
+3. timeout
+4. 其他 Exception
+查詢數量過多。
+無痕
