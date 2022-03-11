@@ -20,17 +20,17 @@ from selenium.webdriver.chrome.options import Options
 
 #exception handling
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
-class URLScrape:
+class URLScrape(object):
     """
     1. Process user demand 
     2. need to return stored-drive path for PDF files and URL for online PDF, which user can click immediately
     """
-    __YEAR = time.strftime('%Y', time.localtime())
+    __YEAR = int(time.strftime('%Y', time.localtime()))-1911
     __SEASON = ["第一季", "第二季", "第三季", "第四季"]
     __FINANCIAL_STATEMENT_TYPE = ["個體", "合併"]
     __LANGUAGE = ["中文版", "英文版"]
 
-    def __init__(self, co_id:str, year:str, season:str, type_:str, language, driver="Chrome") -> None:
+    def __init__(self, co_id:str, year:int, season:str, type_:str, language, driver="Chrome") -> None:
         """
         Constructor
         input: keywords, (後續DataLoader完成可以直接使用物件做為輸入, 取其參數)
@@ -41,16 +41,13 @@ class URLScrape:
         self.season = season
         self.type_ = type_
         self.language = language
-        # self.options = Options()
-        # self.options.add_argument("--incognito")           #開啟無痕模式
-        # self.options.add_argument("--headless")
         self.driver = driver
         self.__basename = None
         self.__financial_statement_title = None
         self.__file_path = None
         self.__target_url = None
         self.__return_message = "unsuccess"        
-        self.__result_status = None
+        self.__result_status = "查無財務報表資訊"
         self.__output_format = ["公司代碼", "年度", "季別", "個體/合併", "語言", "檔案名稱", "檔案路徑", "財報網站連結", "結果"]
 
     @property
@@ -93,23 +90,27 @@ class URLScrape:
         # list(range(cls.__MAX_TICKER)), cls.__YEAR,
         return (cls.__YEAR, cls.__SEASON, cls.__FINANCIAL_STATEMENT_TYPE, cls.__LANGUAGE)
     
-    @property
     def keywords_valid(self):
         """
         check whether "self.__keywords" valid, usually used when choosing financial statement.
         """
         valid = False
-        if (self.__YEAR > URLScrape.get_keywords_standard()[0]):
+        if (self.year > URLScrape.get_keywords_standard()[0]):
             self.__result_status = "財報「年度」錯誤"
+            return valid
         elif (self.season not in URLScrape.get_keywords_standard()[1]):
             self.__result_status = "財報「季度」錯誤"
+            return valid
         elif (self.type_ not in URLScrape.get_keywords_standard()[2]):
             self.__result_status = "請選擇「個體」或「合併」財報"
+            return valid
         elif (self.language not in URLScrape.get_keywords_standard()[3]):
             self.__result_status = "請選擇「中文版」或「英文版」"
+            return valid
         else: 
             valid = True
-        return valid
+            return valid
+
 
     def get_output_df(self)-> tuple:
         return pd.DataFrame(data= [[self.co_id, self.year, self.season, self.type_, self.language, self.__basename, self.__file_path, self.__target_url, self.__result_status]], 
@@ -142,21 +143,14 @@ class URLScrape:
 
 
     def scrape(self) -> str:
-        # if self.__have_scraped:
-        #     """
-        #     已經爬過, 提供使用者歷史資訊 (get_property()),
-        #     並且 return None 跳出 method
-        #     """
-        #     print("The url haved been scraped.")
-        #     return None
         print(self.co_id)
-        if (self.keywords_valid != True):
+        if (self.keywords_valid() != True):
             self.__return_message="invalid"
+            print("invalid in")
             return self.__return_message
         try:
             """Try catch (連接到下方, 都與無法下載、查無資訊相關)"""
-            print("started")
-            first_page_url = "https://doc.twse.com.tw/server-java/t57sb01?step=1&colorchg=1&co_id="+self.co_id+"&year="+self.year+"&seamon=&mtype=A&"
+            first_page_url = "https://doc.twse.com.tw/server-java/t57sb01?step=1&colorchg=1&co_id="+self.co_id+"&year="+str(self.year)+"&seamon=&mtype=A&"
             self.driver.get(first_page_url)
             if URLScrape.is_financial_institute(first_page_url):
                 self.driver.find_element(By.XPATH, "/html/body/center/form/table[1]/tbody/tr[2]/td[3]/input").click()
@@ -164,6 +158,7 @@ class URLScrape:
             """First page"""
             # Receive 10 elements, which is different kind of financial statements. First index is column header, need to be skipped
             # use index and variable to check which pdf file to use. 
+            time.sleep(5)
             elements = self.driver.find_elements(By.XPATH,"/html/body/center/form/table[2]/tbody/tr")
             match_element = self.match_user_need(elements)
             url_link = match_element.find_element(By.PARTIAL_LINK_TEXT, ".pdf")
@@ -175,6 +170,7 @@ class URLScrape:
 
             """Second Page (new windows) --> Need to switch to new windows"""
             # 獲得當前所有開啟的視窗的控制程式碼，只適用於出現的第二個視窗 --> 可以用list的方法進行改進 (ex:取最後一個 all_handles[-1])
+            time.sleep(5)
             search_windows = self.driver.current_window_handle
             all_handles = self.driver.window_handles
             for handle in all_handles:
@@ -207,10 +203,17 @@ class URLScrape:
             self.__result_status = "下載成功！"
             print("Download success !")
             self.__return_message = "success"
+            # return self.__return_message
 
         except TimeoutException as e:
             print("Timeout Exception at "+self.co_id)
-
+        except NoSuchElementException as e:
+            print("no such")
+            self.__result_status = "查無財報資訊"
+            self.__return_message = "not found"
+        except AttributeError as error:
+            print("not found")
+            self.__return_message = "not found"
         finally: 
             return self.__return_message
 
@@ -225,6 +228,7 @@ class URLScrappingList:
         self.__result = pd.DataFrame({"公司代碼": None, "年度": None, "季別": None, "個體/合併": None, "語言": None, "檔案名稱": None, "檔案路徑": None, "財報網站連結": None, "結果":None}, index=[0])
         self.user_agent = UserAgent()
         self.options = webdriver.ChromeOptions()
+        self.options.add_experimental_option("excludeSwitches", ['enable-automation', 'enable-logging'])
         self.options.add_argument("--incognito")#開啟無痕模式
         self.options.add_argument('--user-agent='+self.user_agent.google )
         # self.options.add_argument('--proxy-server=88.255.102.98:8080')
@@ -259,37 +263,33 @@ class URLScrappingList:
             port_.append(dic["Port"])
         print(ip_address_)
         print(port_)
-        #randomly select (IP address: port) from ip_address_ and port_.
-        
+        #randomly select (IP address: port) from ip_address_ and port_ here.
         return ip_address_, port_
 
     def scraps_all(self)-> None:
         for index_task in range(self.__input.num_of_request):
             series = self.__input.df.iloc[index_task ,:]
-            co_id, year, season, type_, language= str(series.iloc[0]), str(series.iloc[1]), str(series.iloc[2]), str(series.iloc[3]), str(series.iloc[4])
+            co_id, year, season, type_, language= str(series.iloc[0]), int(series.iloc[1]), str(series.iloc[2]), str(series.iloc[3]), str(series.iloc[4])
             # scrape_obj = URLScrape(co_id, year, season, type_, language, self.driver)
             scrape_obj = URLScrape(co_id, year, season, type_, language, self.driver)
             return_message = scrape_obj.scrape()
-            print(return_message)
-            if return_message != "invalid":
+            if return_message != "invalid" and return_message!="not found":
                 time_out = 1
-                while( not return_message=="success" and (time_out <= 3)):
+                #查無資訊至多查詢三筆 (包含最剛開始的一筆)
+                while( not return_message=="success" and (time_out < 3)):
                     print("rerun")
                     self.driver.close()
                     self.driver.quit()
-                    tem_option = webdriver.ChromeOptions()
-                    tem_option.add_argument("--incognito") #開啟無痕模式
-                    tem_option.add_argument('--user-agent='+self.user_agent.firefox )
-                    # tem_option.add_argument('--proxy-server=20.103.234.40:8080')
-                    time.sleep(15)
-                    self.driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), chrome_options = tem_option)
+                    time.sleep(10)
+                    self.driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), chrome_options = self.options)
                     scrape_obj = URLScrape(co_id, year, season, type_, language, self.driver)
                     return_message = scrape_obj.scrape()
                     time_out += 1
+                if index_task < self.__input.num_of_request-1:
+                    time.sleep(10)
             else:
                 pass
             self.__result = pd.concat([self.__result, scrape_obj.get_output_df()])
-            time.sleep(10)
         self.driver.quit()
         print("爬蟲結束")
         self.__result = self.__result.iloc[1:].reset_index(drop=True)
