@@ -1,7 +1,6 @@
 <h2>RPA financial statement scraping</h2>
-To help deparments who need huge numbers of financial statement, we build this project to **scrape finanical statement online.**
-<br>
 
+To help deparments who need huge numbers of financial statement, we build this project to **scrape finanical statement online** .
 
 
 ### Reptile target
@@ -65,12 +64,12 @@ python main.py
 
 
 
-### Reminder
-Please set a **Time interval** (which is `time.sleep(10)` in Python) about ten seconds between every time of scrape in order to **avoid anti-scraping**.
-
-
-
 ### Result
 For testing file, we imitate some real time condition, and provide **4 real demands file** and **6 fake demands** (which are some **exceptions** we want to catch) in [`測試檔.csv`](https://github.com/domingo1021/Financial-Statement-Scraping/blob/main/input/%E6%B8%AC%E8%A9%A6%E6%AA%94.csv) file.
 
 This project Only use **1 minutes** to get correct answer!
+
+
+### Reminder
+1. The chrome.exe software is for Chrome99 version, make sure you have upgraded Chrome version before using this project.
+2. Please set a **Time interval**, which is `time.sleep(10)` in Python, about ten seconds between every time of scrape in order to **avoid anti-scraping**.
