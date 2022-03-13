@@ -52,9 +52,9 @@ Mainly using `Python` programming language packages below to help departments to
 4. Type `python main.py` in terminal to run the project.
 
 5. After scraping financial statement, all the financial statement like 
-[`2330_108年第四季中文版合併財報.pdf`](https://github.com/domingo1021/Financial-Statement-Scraping/blob/main/2330/2330_108年第四季中文版合併財報.pdf) will be stored in a directory belongs to each company respectively. And the **directory name** is set as ticker number `2330` of each stock in Taiwan stock market. 
+[`2330_108年第四季中文版合併財報.pdf`](https://github.com/domingo1021/Financial-Statement-Scraping/blob/main/2330/2330_108年第四季中文版合併財報.pdf) will be stored in a directory belongs to each company respectively. And the **directory name** is set as the ticker number of the stock in Taiwan stock market, like `2330`. 
 
-6. User also can get an [`output.csv`](https://github.com/domingo1021/Financial-Statement-Scraping/tree/main/output/輸出_測試檔.csv) in  `./output/輸出_{Input file name}` to get access to information of an individual scrape.
+6. User can also get an [`output.csv`](https://github.com/domingo1021/Financial-Statement-Scraping/tree/main/output/輸出_測試檔.csv) in  `./output/輸出_{Input file name}` to get access to more information about an individual scrape.
 
 
 
@@ -65,5 +65,6 @@ This project Only use **1~2 minutes depends on your device** to get correct answ
 
 
 ### Reminder
-1. The chrome.exe software is for **Chrome 99 version**, make sure you have upgraded Chrome version before using this project.
+1. The chromedriver.exe software is for **Chrome 99 version**, make sure you have upgraded Chrome version before using this project, otherwise, [download](https://chromedriver.chromium.org/downloads) chromedriver.exe for your current Chrome version.
+
 2. Please set a **Time interval**, which is `time.sleep(10)` in Python, about ten seconds between any two times of scrape in order to **avoid anti-scraping**.
