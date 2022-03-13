@@ -1,1 +1,11 @@
-
+公司代碼,年度,季別,個體/合併,語言,檔案名稱,檔案路徑,結果
+2330,108,第四季,個體,中文版,2330_108年第四季中文版個體財報.pdf,C:\Users\Administrator\Side project\(RPA) Financial_statement_scraping\2330\2330_108年第四季中文版個體財報.pdf,下載成功！
+3037,107,第四季,合併,英文版,3037_107年第四季英文版合併財報.pdf,C:\Users\Administrator\Side project\(RPA) Financial_statement_scraping\3037\3037_107年第四季英文版合併財報.pdf,下載成功！
+6269,108,第四季,合併,中文版,6269_108年第四季中文版合併財報.pdf,C:\Users\Administrator\Side project\(RPA) Financial_statement_scraping\6269\6269_108年第四季中文版合併財報.pdf,下載成功！
+2884,108,第四季,合併,中文版,2884_108年第四季中文版合併財報.pdf,C:\Users\Administrator\Side project\(RPA) Financial_statement_scraping\2884\2884_108年第四季中文版合併財報.pdf,下載成功！
+2882,11111,第四季,合併,中文版,,,財報「年度」錯誤
+2884,108,第五季,合併,中文版,,,財報「季度」錯誤
+2884,108,第四季,abc,中文版,,,請選擇「個體」或「合併」財報
+2884,108,第四季,合併,拉丁文,,,請選擇「中文版」或「英文版」
+2884,108,第四季,個體,中文版,,,查無財報資訊
+99999,108,第四季,個體,中文版,,,查無財報資訊
