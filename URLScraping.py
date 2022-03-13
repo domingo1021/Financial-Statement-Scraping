@@ -48,7 +48,7 @@ class URLScrape(object):
         self.__target_url = None
         self.__return_message = "unsuccess"        
         self.__result_status = "查無財務報表資訊"
-        self.__output_format = ["公司代碼", "年度", "季別", "個體/合併", "語言", "檔案名稱", "檔案路徑", "財報網站連結", "結果"]
+        self.__output_format = ["公司代碼", "年度", "季別", "個體/合併", "語言", "檔案名稱", "檔案路徑", "結果"]
 
     @property
     def target_url(self)-> str:
@@ -113,7 +113,7 @@ class URLScrape(object):
 
 
     def get_output_df(self)-> tuple:
-        return pd.DataFrame(data= [[self.co_id, self.year, self.season, self.type_, self.language, self.__basename, self.__file_path, self.__target_url, self.__result_status]], 
+        return pd.DataFrame(data= [[self.co_id, self.year, self.season, self.type_, self.language, self.__basename, self.__file_path, self.__result_status]], 
                             columns= self.output_format) 
 
     def request_first_page_content(self, url: str):
@@ -158,7 +158,6 @@ class URLScrape(object):
             """First page"""
             # Receive 10 elements, which is different kind of financial statements. First index is column header, need to be skipped
             # use index and variable to check which pdf file to use. 
-            time.sleep(5)
             elements = self.driver.find_elements(By.XPATH,"/html/body/center/form/table[2]/tbody/tr")
             match_element = self.match_user_need(elements)
             url_link = match_element.find_element(By.PARTIAL_LINK_TEXT, ".pdf")
@@ -170,7 +169,6 @@ class URLScrape(object):
 
             """Second Page (new windows) --> Need to switch to new windows"""
             # 獲得當前所有開啟的視窗的控制程式碼，只適用於出現的第二個視窗 --> 可以用list的方法進行改進 (ex:取最後一個 all_handles[-1])
-            time.sleep(5)
             search_windows = self.driver.current_window_handle
             all_handles = self.driver.window_handles
             for handle in all_handles:
@@ -213,6 +211,7 @@ class URLScrape(object):
             self.__return_message = "not found"
         except AttributeError as error:
             print("not found")
+            self.__result_status = "查無財報資訊"
             self.__return_message = "not found"
         finally: 
             return self.__return_message
@@ -225,7 +224,7 @@ class URLScrappingList:
     """
     def __init__(self, input_object: InputLoader)-> None:
         self.__input = input_object
-        self.__result = pd.DataFrame({"公司代碼": None, "年度": None, "季別": None, "個體/合併": None, "語言": None, "檔案名稱": None, "檔案路徑": None, "財報網站連結": None, "結果":None}, index=[0])
+        self.__result = pd.DataFrame({"公司代碼": None, "年度": None, "季別": None, "個體/合併": None, "語言": None, "檔案名稱": None, "檔案路徑": None, "結果":None}, index=[0])
         self.user_agent = UserAgent()
         self.options = webdriver.ChromeOptions()
         self.options.add_experimental_option("excludeSwitches", ['enable-automation', 'enable-logging'])
@@ -257,7 +256,6 @@ class URLScrappingList:
         port_ = []
         for index ,i in enumerate(proxies): 
             new_x = json.dumps(i,sort_keys=True)
-            print(index)
             dic = ast.literal_eval(new_x)
             ip_address_.append(dic["IP Address"])
             port_.append(dic["Port"])

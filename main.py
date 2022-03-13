@@ -1,10 +1,6 @@
 from DataLoader import InputLoader
 from URLScraping import URLScrape, URLScrappingList
 import time
-from ipaddress import ip_address
-import csv
-import tkinter as tk
-from tkinter import filedialog
 
 if __name__ == '__main__':
     # root = tk.Tk()
