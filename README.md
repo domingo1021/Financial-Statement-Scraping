@@ -1,5 +1,5 @@
 <h2>RPA financial statement scraping</h2>
-To help deparments who need huge numbers of financial statement, we build this project to scrape finanical statement online.
+To help deparments who need huge numbers of financial statement, we build this project to **scrape finanical statement online.**
 <br>
 
 
@@ -21,11 +21,30 @@ Mainly using `Python` programming language packages below to help departments to
 ### Step to utilize this project, Fist stage
 1. Prepare .csv file as input to this project. For the format of csv file, please refer to [`測試檔.csv`](https://github.com/domingo1021/Financial-Statement-Scraping/blob/main/input/%E6%B8%AC%E8%A9%A6%E6%AA%94.csv)
 
-2. Set your input csv file path in `InputLoader` to initialize an input object, ex:  
+2. Input some information about the financial statement you want to search for.  
 
-```python
-InputLoader("./input/測試檔.csv")
-```
+  - **Option (1)**
+
+  Set your input csv file path directly in `InputLoader` to initialize an input object as below:
+
+  ```python
+  InputLoader("./input/測試檔.csv")
+  ```
+
+  - **Option (2) --> More flexible** 
+  
+  Using `tkinter` to select .cvs file you want.
+
+  ```python
+  import tkinter as tk
+  from tkinter import filedialog
+
+  root = tk.Tk()
+  root.withdraw()
+  file_path = filedialog.askopenfilename(initialdir = "./input")
+
+  loader = InputLoader(file_path)
+  ```
 
 3. Type cmd command below to activate virtual environment.
 
@@ -48,3 +67,10 @@ python main.py
 
 ### Reminder
 Please set a **Time interval** (which is `time.sleep(10)` in Python) about ten seconds between every time of scrape in order to **avoid anti-scraping**.
+
+
+
+### Result
+For testing file, we imitate some real time condition, and provide **4 real demands file** and **6 fake demands** (which are some **exceptions** we want to catch) in [`測試檔.csv`](https://github.com/domingo1021/Financial-Statement-Scraping/blob/main/input/%E6%B8%AC%E8%A9%A6%E6%AA%94.csv) file.
+
+This project Only use **1 minutes** to get correct answer!
