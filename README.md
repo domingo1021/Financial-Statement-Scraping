@@ -1,4 +1,4 @@
-<h2>RPA financial statenent scraping</h2>
+<h2>RPA financial statement scraping</h2>
 To help deparments who need huge numbers of financial statement, we build this project to scrape finanical statement online.
 <br>
 
