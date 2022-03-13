@@ -22,17 +22,13 @@ Mainly using `Python` programming language packages below to help departments to
 
 2. Input some information about the financial statement you want to search for.  
 
-  - **Option (1)**
-
-  Set your input csv file path directly in `InputLoader` to initialize an input object as below:
+  - **Option (1)**: Set your input csv file path directly in `InputLoader` to initialize an input object as below:
 
   ```python
   InputLoader("./input/測試檔.csv")
   ```
 
-  - **Option (2) --> More flexible** 
-  
-  Using `tkinter` to select .cvs file you want.
+  - **Option (2) --> More flexible**: Using `tkinter` to select .cvs file you want.
 
   ```python
   import tkinter as tk
@@ -45,17 +41,15 @@ Mainly using `Python` programming language packages below to help departments to
   loader = InputLoader(file_path)
   ```
 
-3. Type cmd command below to activate virtual environment.
+3. Type cmd command lines below to prepare for required environment.
 
-```bash
-virtual\Scripts\activate
-```
+     - Building virtual environment: `python -m venv virtual`
 
-4. Type command below in terminal to run the project.
+     - Activate virtual environment: `virtual\Scripts\activate`
 
-```bash
-python main.py
-```
+     - Install requirements package for this project: `pip -r requirements.txt`
+
+4. Type `python main.py` in terminal to run the project.
 
 5. After scraping financial statement, all the financial statement like 
 [`2330_108年第四季中文版合併財報.pdf`](https://github.com/domingo1021/Financial-Statement-Scraping/blob/main/2330/2330_108年第四季中文版合併財報.pdf) will be stored in a directory belongs to each company respectively. And the **directory name** is set as ticker number `2330` of each stock in Taiwan stock market. 
@@ -71,5 +65,5 @@ This project Only use **1~2 minutes depends on your device** to get correct answ
 
 
 ### Reminder
-1. The chrome.exe software is for Chrome99 version, make sure you have upgraded Chrome version before using this project.
+1. The chrome.exe software is for **Chrome 99 version**, make sure you have upgraded Chrome version before using this project.
 2. Please set a **Time interval**, which is `time.sleep(10)` in Python, about ten seconds between every time of scrape in order to **avoid anti-scraping**.
