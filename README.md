@@ -66,4 +66,4 @@ This project Only use **1~2 minutes depends on your device** to get correct answ
 
 ### Reminder
 1. The chrome.exe software is for **Chrome 99 version**, make sure you have upgraded Chrome version before using this project.
-2. Please set a **Time interval**, which is `time.sleep(10)` in Python, about ten seconds between every time of scrape in order to **avoid anti-scraping**.
+2. Please set a **Time interval**, which is `time.sleep(10)` in Python, about ten seconds between any two times of scrape in order to **avoid anti-scraping**.
