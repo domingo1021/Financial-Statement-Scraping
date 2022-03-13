@@ -228,7 +228,7 @@ class URLScrappingList:
         self.options.add_argument("--incognito")#開啟無痕模式
         self.options.add_argument('--user-agent='+self.user_agent.google )
         # self.options.add_argument('--proxy-server=88.255.102.98:8080')
-        self.driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options = self.options)
+        self.driver = webdriver.Chrome(executable_path="./chromedriver.exe", options = self.options)
 
     # Get free proxies for rotating, if need for anti-scrape. (not use now.)
     def get_free_proxies(self):
