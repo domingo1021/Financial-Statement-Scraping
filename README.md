@@ -61,7 +61,7 @@ python main.py
 5. After scraping financial statement, all the financial statement like 
 [`2330_108年第四季中文版合併財報.pdf`](https://github.com/domingo1021/Financial-Statement-Scraping/blob/main/2330/2330_108年第四季中文版合併財報.pdf) will be stored in a directory belongs to each company respectively. And the **directory name** is set as ticker number `2330` of each stock in Taiwan stock market. 
 
-6. User also can get an [`output.csv`](https://github.com/domingo1021/Financial-Statement-Scraping/tree/main/output) in  `./output/輸出_{Input file name}` to get access to information of an individual scrape.
+6. User also can get an [`output.csv`](https://github.com/domingo1021/Financial-Statement-Scraping/tree/main/output/輸出_測試檔.csv) in  `./output/輸出_{Input file name}` to get access to information of an individual scrape.
 
 
 
