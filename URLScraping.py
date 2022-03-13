@@ -149,7 +149,6 @@ class URLScrape(object):
             print("invalid in")
             return self.__return_message
         try:
-            """Try catch (連接到下方, 都與無法下載、查無資訊相關)"""
             first_page_url = "https://doc.twse.com.tw/server-java/t57sb01?step=1&colorchg=1&co_id="+self.co_id+"&year="+str(self.year)+"&seamon=&mtype=A&"
             self.driver.get(first_page_url)
             if URLScrape.is_financial_institute(first_page_url):
@@ -163,9 +162,7 @@ class URLScrape(object):
             url_link = match_element.find_element(By.PARTIAL_LINK_TEXT, ".pdf")
             self.__financial_statement_title = url_link.text
             url_link.click()
-            # try:
-            # except NoSuchElementException:
-            #     pass
+
 
             """Second Page (new windows) --> Need to switch to new windows"""
             # 獲得當前所有開啟的視窗的控制程式碼，只適用於出現的第二個視窗 --> 可以用list的方法進行改進 (ex:取最後一個 all_handles[-1])
