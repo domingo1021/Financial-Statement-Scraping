@@ -67,7 +67,7 @@ python main.py
 ### Result
 For testing file, we imitate some real time condition, and provide **4 real demands file** and **6 fake demands** (which are some **exceptions** we want to catch) in [`測試檔.csv`](https://github.com/domingo1021/Financial-Statement-Scraping/blob/main/input/%E6%B8%AC%E8%A9%A6%E6%AA%94.csv) file.
 
-This project Only use **1 minutes** to get correct answer!
+This project Only use **1~2 minutes depends on your device** to get correct answer!
 
 
 ### Reminder
