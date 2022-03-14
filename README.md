@@ -4,7 +4,7 @@ To help deparments who need huge numbers of financial statement, we build this p
 
 
 ### Reptile target
-The reptile target of this project is Taiwan Stock Exchange (台灣證交所公開資訊觀測站, twse).
+The reptile target of this project is Taiwan Stock Exchange (台灣證交所公開資訊觀測站, TWSE).
 <br>
 
 
@@ -61,7 +61,7 @@ Mainly using `Python` programming language packages below to help departments to
 ### Result
 For testing file, we imitate some real time condition, and provide **4 real demands file** and **6 fake demands** (which are some **exceptions** we want to catch) in [`測試檔.csv`](https://github.com/domingo1021/Financial-Statement-Scraping/blob/main/input/%E6%B8%AC%E8%A9%A6%E6%AA%94.csv) file.
 
-This project Only use **1~2 minutes depends on your device** to get correct answer!
+This project use only **1~2 minutes depends on your device** to get correct answer!
 
 
 ### Reminder
