@@ -17,7 +17,7 @@ Mainly using `Python` programming language packages below to help departments to
 
 
 
-### Step to utilize this project, Fist stage
+### Step to utilize this project, First stage
 1. Prepare .csv file as input to this project. For the format of csv file, please refer to [`測試檔.csv`](https://github.com/domingo1021/Financial-Statement-Scraping/blob/main/input/%E6%B8%AC%E8%A9%A6%E6%AA%94.csv)
 
 2. Input some information about the financial statement you want to search for.  
