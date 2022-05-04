@@ -47,7 +47,7 @@ Mainly using `Python` programming language packages below to help departments to
 
      - Activate virtual environment: `virtual\Scripts\activate`
 
-     - Install requirements package for this project: `pip -r requirements.txt`
+     - Install requirements package for this project: `pip install -r requirements.txt`
 
 4. Type `python main.py` in terminal to run the project.
 
